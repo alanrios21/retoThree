@@ -7,6 +7,7 @@ import GlobalSales from '../pages/GlobalSales';
 import Analytics from '../pages/Analytics';
 
 const AppRouter = () => {
+
   return (
     <div>
       <RouterRoutes>

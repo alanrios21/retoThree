@@ -354,6 +354,7 @@ const SignUp = () => {
                     className="w-full cursor-pointer rounded-lg border border-[#A7B7DD] bg-[#A7B7DD] p-4 text-white transition hover:bg-opacity-90">Submit</button>
                 </div>
               </form>
+
             </div>
           </div>
         </div>

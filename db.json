@@ -1,4 +1,16 @@
 {
   "users": [
+    {
+      "id": "782a",
+      "nombre": "Alan Rios",
+      "email": "riosalan264@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "460a",
+      "nombre": "Alan Rios",
+      "email": "riosalan264@gmail.com",
+      "password": "123"
+    }
   ]
 }
