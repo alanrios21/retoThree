@@ -59,7 +59,7 @@ const SalesTable: React.FC = () => {
             </th>
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody>
           {salesData.map((data) => (
             <tr key={data.country}>
               <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">

@@ -26,7 +26,6 @@ const packageData: Package[] = [
     invoiceDate: 'Jan 13,2023',
     status: 'Pending',
   },
-  // Nuevos productos agregados
   {
     name: 'Premium Package',
     price: 129.0,
@@ -53,7 +52,7 @@ const packageData: Package[] = [
   },
 ];
 
-const TableThree = () => {
+const ProductTable = () => {
   const [showInvoiceDate, setShowInvoiceDate] = useState(true);
 
   useEffect(() => {
@@ -61,7 +60,7 @@ const TableThree = () => {
       setShowInvoiceDate(window.innerWidth > 460);
     };
 
-    handleResize(); // Call on first render
+    handleResize(); 
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -128,4 +127,4 @@ const TableThree = () => {
   );
 };
 
-export default TableThree;
+export default ProductTable;

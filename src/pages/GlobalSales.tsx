@@ -1,4 +1,4 @@
-import SalesTable from "../components/Charts/SalesTable"
+import SalesTable from "../components/Tables/SalesTable"
 import MapOne from "../components/Maps/MapOne"
 import DefaultLayout from "../layout/DefaultLayout"
 

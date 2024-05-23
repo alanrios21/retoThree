@@ -110,18 +110,20 @@ const options: ApexOptions = {
   },
 };
 
-interface ChartOneState {
+interface ChartSalesState {
   series: {
     name: string;
     data: number[];
   }[];
 }
 
-const ChartOne: React.FC = () => {
-  const [state, setState] = useState<ChartOneState>({
+const ChartSales: React.FC = () => {
+  const [selectedInterval, setSelectedInterval] = useState<string>('day');
+
+  const [state, setState] = useState<ChartSalesState>({
     series: [
       {
-        name: 'Producto Uno',
+        name: 'Products',
         data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45],
       },
     ],
@@ -129,15 +131,16 @@ const ChartOne: React.FC = () => {
 
   const handleIntervalChange = (interval: string) => {
     let newData: number[] = [];
-  
+    setSelectedInterval(interval);
+
     if (interval === 'day') {
-      newData = [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45]; 
+      newData = [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45];
     } else if (interval === 'week') {
       newData = [50, 30, 40, 60];
     } else if (interval === 'month') {
-      newData = [100, 50, 90, 75, 80, 40, 10, 11, 12, 12, 13, 35]; 
+      newData = [100, 50, 90, 75, 80, 40, 10, 11, 12, 12, 13, 35];
     }
-  
+
     setState((prevState) => ({
       ...prevState,
       series: [
@@ -148,7 +151,7 @@ const ChartOne: React.FC = () => {
       ],
     }));
   };
-  
+
   return (
     <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-8">
       <div className="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap">
@@ -159,26 +162,29 @@ const ChartOne: React.FC = () => {
             </span>
             <div className="w-full">
               <p className="font-semibold text-primary">Total Sales</p>
-              <p className="text-sm font-medium">12.04.2022 - 12.05.2022</p>
+              <p className="text-sm font-medium">12.04.2024 - 12.05.2024</p>
             </div>
           </div>
         </div>
         <div className="flex w-full max-w-45 justify-end">
           <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
             <button
-              className="rounded bg-white py-1 px-3 text-xs font-medium text-black shadow-card hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark"
+              className={`rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white ${selectedInterval === 'day' ? 'shadow-card dark:bg-boxdark' : 'dark:hover:bg-boxdark'
+                }`}
               onClick={() => handleIntervalChange('day')}
             >
               Day
             </button>
             <button
-              className="rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark"
+              className={`rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white ${selectedInterval === 'week' ? 'shadow-card dark:bg-boxdark' : 'dark:hover:bg-boxdark'
+                }`}
               onClick={() => handleIntervalChange('week')}
             >
               Week
             </button>
             <button
-              className="rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark"
+              className={`rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white ${selectedInterval === 'month' ? 'shadow-card dark:bg-boxdark' : 'dark:hover:bg-boxdark'
+                }`}
               onClick={() => handleIntervalChange('month')}
             >
               Month
@@ -200,4 +206,4 @@ const ChartOne: React.FC = () => {
   );
 };
 
-export default ChartOne;
+export default ChartSales;

@@ -1,15 +1,12 @@
-// userReducer.ts
 interface UserState {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  user: any; // Replace 'any' with the specific type of your user data if available
+  user: any; 
   loading: boolean;
   error: string | null;
 }
 
 interface UserAction {
   type: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  payload?: any; // Replace 'any' with the specific type of your payload if available
+  payload?: any; 
 }
 
 const initialState: UserState = {
@@ -26,7 +23,7 @@ const userReducer = (state: UserState = initialState, action: UserAction): UserS
         loading: true
       };
       case 'UPDATE_USER':
-      return action.payload; // Actualiza el estado con los nuevos datos del usuario
+      return action.payload; 
    
     case 'CREATE_USER_SUCCESS':
       return {

@@ -112,60 +112,57 @@ const options: ApexOptions = {
   },
 };
 
-interface ChartForState {
+interface ChartClientsState {
   series: {
     name: string;
     data: number[];
   }[];
 }
 
-const ChartFor: React.FC = () => {
-  const [state, setState] = useState<ChartForState>({
+const ChartClients: React.FC = () => {
+  const [state, setState] = useState<ChartClientsState>({
     series: [
       {
-        name: 'Product One',
+        name: 'Clients',
         data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45],
       },
-      // Puedes agregar más productos aquí si lo deseas
     ],
   });
 
-  const [selectedInterval, setSelectedInterval] = useState<string>('Day');
+  const [selectedInterval, setSelectedInterval] = useState<string>('day');
 
   const handleChangeInterval = (interval: string) => {
     setSelectedInterval(interval);
-  
-    // Actualizar el estado de la serie según el intervalo seleccionado
-    if (interval === 'Week') {
+
+    if (interval === 'week') {
       setState({
         series: [
           {
-            name: 'Product One',
-            data: [23, 11, 22, 27, 13, 22, 37], // datos para la semana
+            name: 'Clients',
+            data: [23, 11, 22, 27, 13, 22, 37],
           },
-          
-          // Puedes agregar más productos aquí si lo deseas
+
         ],
       });
-    } else if (interval === 'Month') {
+    } else if (interval === 'month') {
       setState({
         series: [
           {
-            name: 'Product One',
-            data: [15, 25, 18, 20, 29, 33, 27, 30, 35, 40, 42, 39], 
+            name: 'Clients',
+            data: [15, 25, 18, 20, 29, 33, 27, 30, 35, 40, 42, 39],
           },
-         
+
         ],
       });
     } else {
-    
+
       setState({
         series: [
           {
-            name: 'Product One',
-            data: [15, 25, 18, 20, 29, 33, 27, 13, 22, 37], 
+            name: 'Clients',
+            data: [15, 25, 18, 20, 29, 33, 27, 13, 22, 37],
           },
-          
+
         ],
       });
     }
@@ -188,36 +185,34 @@ const ChartFor: React.FC = () => {
             </span>
             <div className="w-full">
               <p className="font-semibold text-secondary">Total Clients</p>
-              <p className="text-sm font-medium">12.04.2022 - 12.05.2022</p>
+              <p className="text-sm font-medium">23.03.2024 - 23.04.2024</p>
             </div>
-          </div> 
+          </div>
         </div>
         <div className="flex w-full max-w-45 justify-end">
           <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
             <button
-              onClick={() => handleChangeInterval('Day')}
-              className={`rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark ${
-                selectedInterval === 'Day' ? 'bg-white shadow-card' : ''
-              }`}
+              onClick={() => handleChangeInterval('day')}
+              className={`rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white ${selectedInterval === 'day' ? 'shadow-card dark:bg-boxdark' : 'dark:hover:bg-boxdark'
+                }`}
             >
               Day
             </button>
             <button
-              onClick={() => handleChangeInterval('Week')}
-              className={`rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark ${
-                selectedInterval === 'Week' ? 'bg-white shadow-card' : ''
-              }`}
+              onClick={() => handleChangeInterval('week')}
+              className={`rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white ${selectedInterval === 'week' ? 'shadow-card dark:bg-boxdark' : 'dark:hover:bg-boxdark'
+                }`}
             >
               Week
             </button>
             <button
-              onClick={() => handleChangeInterval('Month')}
-              className={`rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark ${
-                selectedInterval === 'Month' ? 'bg-white shadow-card' : ''
-              }`}
+              onClick={() => handleChangeInterval('month')}
+              className={`rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white ${selectedInterval === 'month' ? 'shadow-card dark:bg-boxdark' : 'dark:hover:bg-boxdark'
+                }`}
             >
               Month
             </button>
+
           </div>
         </div>
       </div>
@@ -230,8 +225,9 @@ const ChartFor: React.FC = () => {
         />
       </div>
     </div>
+
   );
-  
+
 };
 
-export default ChartFor;
+export default ChartClients;

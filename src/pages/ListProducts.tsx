@@ -1,12 +1,11 @@
-import TableThree from "../components/Tables/TableThree"
+import ProductTable from "../components/Tables/ProductTable"
 import DefaultLayout from "../layout/DefaultLayout"
 
 const ListProducts = () => {
   return (
     <div>
     <DefaultLayout>
-
-      <TableThree/>
+      <ProductTable/>
     </DefaultLayout>
     </div>
   )

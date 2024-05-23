@@ -40,9 +40,8 @@ export const createUser = (userData: UserData) => {
     dispatch({ type: 'CREATE_USER_REQUEST' });
 
     axios.post('http://localhost:3001/usuarios', userData)
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .then(response => {
-        dispatch({ type: 'CREATE_USER_SUCCESS', payload: userData }); // Actualiza el estado global con los datos del usuario registrados
+        dispatch({ type: 'CREATE_USER_SUCCESS', payload: userData }); 
       })
       .catch(error => {
         dispatch({ type: 'CREATE_USER_FAILURE', payload: error.message });

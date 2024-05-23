@@ -1,11 +1,11 @@
-import ChartThree from "../components/Charts/ChartThree"
+import ChartAnalytics from "../components/Charts/ChartAnalytics"
 import DefaultLayout from "../layout/DefaultLayout"
 
 const Analytics = () => {
   return (
     <div>
       <DefaultLayout>
-        <ChartThree/>
+        <ChartAnalytics/>
       </DefaultLayout>
     </div>
   )

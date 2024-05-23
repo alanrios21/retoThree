@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import LogoDark from '../images/logo/logo-dark.svg';
 import Logo from '../images/logo/logo-icon.svg';
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { useUser } from "../hooks/useContext";
 
 interface FormData {
   nombre: string;
@@ -29,9 +30,10 @@ const SignUp = () => {
     password: ''
   });
 
-  const navigate = useNavigate();
+  const { setUsername, fetchData } = useUser(); 
+  const navigate = useNavigate(); 
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setFormData(prevData => ({
@@ -45,7 +47,7 @@ const SignUp = () => {
     }));
   };
 
-  const handleSubmit = async (event: FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     let formIsValid = true;
     const newErrors: FormErrors = { nombre: '', email: '', password: '' };
@@ -69,13 +71,16 @@ const SignUp = () => {
 
     if (formIsValid) {
       try {
-        await fetch('http://localhost:3001/users', {
+        await fetch('http://localhost:3001/posts', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(formData)
         });
+
+        setUsername(formData.nombre);
+        fetchData();
 
         navigate('/home');
       } catch (error) {
@@ -354,7 +359,6 @@ const SignUp = () => {
                     className="w-full cursor-pointer rounded-lg border border-[#A7B7DD] bg-[#A7B7DD] p-4 text-white transition hover:bg-opacity-90">Submit</button>
                 </div>
               </form>
-
             </div>
           </div>
         </div>

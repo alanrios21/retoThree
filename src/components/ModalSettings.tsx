@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import dataJSON from '../../public/data.json';
-
-
 
 export const Modal = ({ closeModal, onSubmit, defaultValue }) => {
   const fields=Object.keys(Object.values(dataJSON)[0]).filter((item:any)=>!(item.startsWith("delta_")));
