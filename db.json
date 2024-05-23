@@ -1,5 +1,22 @@
 {
   "posts": [
-    
+    {
+      "id": "bcb8",
+      "nombre": "Alan Rios",
+      "email": "riosalan264@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "0f74",
+      "nombre": "Alan Rios",
+      "email": "riosalan264@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "c700",
+      "nombre": "Alan",
+      "email": "riosalan264@gmail.com",
+      "password": "123"
+    }
   ]
 }

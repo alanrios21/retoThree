@@ -40,7 +40,7 @@ export const createUser = (userData: UserData) => {
     dispatch({ type: 'CREATE_USER_REQUEST' });
 
     axios.post('http://localhost:3001/usuarios', userData)
-      .then(response => {
+      .then(() => {
         dispatch({ type: 'CREATE_USER_SUCCESS', payload: userData }); 
       })
       .catch(error => {

@@ -1,13 +1,37 @@
+interface User {
+  // Define las propiedades de un usuario
+}
+
 interface UserState {
-  user: any; 
+  user: User | null; 
   loading: boolean;
   error: string | null;
 }
 
-interface UserAction {
-  type: string;
-  payload?: any; 
+interface CreateUserRequestAction {
+  type: 'CREATE_USER_REQUEST';
 }
+
+interface UpdateUserAction {
+  type: 'UPDATE_USER';
+  payload: User;
+}
+
+interface CreateUserSuccessAction {
+  type: 'CREATE_USER_SUCCESS';
+  payload: User;
+}
+
+interface CreateUserFailureAction {
+  type: 'CREATE_USER_FAILURE';
+  payload: string;
+}
+
+type UserAction = 
+  | CreateUserRequestAction
+  | UpdateUserAction
+  | CreateUserSuccessAction
+  | CreateUserFailureAction;
 
 const initialState: UserState = {
   user: null,
@@ -22,9 +46,11 @@ const userReducer = (state: UserState = initialState, action: UserAction): UserS
         ...state,
         loading: true
       };
-      case 'UPDATE_USER':
-      return action.payload; 
-   
+    case 'UPDATE_USER':
+      return {
+        ...state,
+        user: action.payload
+      }; 
     case 'CREATE_USER_SUCCESS':
       return {
         ...state,
