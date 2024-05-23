@@ -1,9 +1,15 @@
-import  { createContext, useState, useEffect, useContext } from 'react';
+import { createContext, useState, useEffect, useContext, ReactNode } from 'react';
 
-const UserContext = createContext();
+type UserContextType = {
+  username: string;
+  setUsername: (username: string) => void;
+  fetchData: () => Promise<void>;
+};
 
-export const UserProvider = ({ children }) => {
-  const [username, setUsername] = useState('');
+const UserContext = createContext<UserContextType | undefined>(undefined);
+
+export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [username, setUsername] = useState<string>('');
 
   const fetchData = async () => {
     try {
@@ -26,7 +32,7 @@ export const UserProvider = ({ children }) => {
       console.error('Error fetching username:', error);
     }
   };
-  
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -38,5 +44,11 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-
-export const useUser = () => useContext(UserContext);
+// Hook personalizado para acceder al contexto
+export const useUser = (): UserContextType => {
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error('useUser must be used within a UserProvider');
+  }
+  return context;
+};

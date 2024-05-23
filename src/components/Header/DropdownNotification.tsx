@@ -2,28 +2,26 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const DropdownNotification = () => {
+    const [notifying, setNotifying] = useState(true);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [notifying, setNotifying] = useState(true);
-
-  const trigger = useRef<any>(null);
-  const dropdown = useRef<any>(null);
-
+  const trigger = useRef<HTMLAnchorElement>(null);
+  const dropdown = useRef<HTMLDivElement>(null);
+  
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
-      if (!dropdown.current) return;
+      if (!dropdown.current || !trigger.current) return;
       if (
         !dropdownOpen ||
-        dropdown.current.contains(target) ||
-        trigger.current.contains(target)
+        dropdown.current.contains(target as Node) ||
+        (trigger.current && trigger.current.contains(target as Node))
       )
         return;
       setDropdownOpen(false);
     };
     document.addEventListener('click', clickHandler);
     return () => document.removeEventListener('click', clickHandler);
-  });
+  }, [dropdownOpen]);
 
-  // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }: KeyboardEvent) => {
       if (!dropdownOpen || keyCode !== 27) return;
@@ -31,7 +29,8 @@ const DropdownNotification = () => {
     };
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
-  });
+  }, [dropdownOpen]);
+
 
   return (
     <li className="relative">

@@ -1,24 +1,24 @@
 import { useEffect, useRef, useState } from "react";
 
 const DropdownDefault = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const trigger = useRef<any>(null);
-  const dropdown = useRef<any>(null);
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const trigger = useRef<HTMLButtonElement>(null); 
+  const dropdown = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
       if (!dropdown.current) return;
       if (
         !dropdownOpen ||
-        dropdown.current.contains(target) ||
-        trigger.current.contains(target)
+        dropdown.current.contains(target as Node) ||
+        (trigger.current && trigger.current.contains(target as Node))
       )
         return;
       setDropdownOpen(false);
     };
     document.addEventListener("click", clickHandler);
     return () => document.removeEventListener("click", clickHandler);
-  });
+  }, [dropdownOpen]);
 
   useEffect(() => {
     const keyHandler = ({ keyCode }: KeyboardEvent) => {
@@ -27,7 +27,7 @@ const DropdownDefault = () => {
     };
     document.addEventListener("keydown", keyHandler);
     return () => document.removeEventListener("keydown", keyHandler);
-  });
+  }, [dropdownOpen]);
 
   return (
     <div className="relative flex">
@@ -119,6 +119,6 @@ const DropdownDefault = () => {
       </div>
     </div>
   );
-};
 
+}
 export default DropdownDefault;

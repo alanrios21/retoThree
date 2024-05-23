@@ -2,25 +2,29 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import UserOne from '../../images/user/user-01.png';
 
-const DropdownUser = ({ username }) => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const trigger = useRef<any>(null);
-  const dropdown = useRef<any>(null);
+interface DropdownUserProps {
+  username: string;
+}
+
+const DropdownUser: React.FC<DropdownUserProps> = ({ username }) => {
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const trigger = useRef<HTMLAnchorElement>(null);
+  const dropdown = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
-      if (!dropdown.current) return;
+      if (!dropdown.current || !trigger.current) return;
       if (
         !dropdownOpen ||
-        dropdown.current.contains(target) ||
-        trigger.current.contains(target)
+        dropdown.current.contains(target as Node) ||
+        (trigger.current && trigger.current.contains(target as Node))
       )
         return;
       setDropdownOpen(false);
     };
     document.addEventListener('click', clickHandler);
     return () => document.removeEventListener('click', clickHandler);
-  });
+  }, [dropdownOpen]);
 
   useEffect(() => {
     const keyHandler = ({ keyCode }: KeyboardEvent) => {
@@ -29,7 +33,7 @@ const DropdownUser = ({ username }) => {
     };
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
-  });
+  }, [dropdownOpen]);
 
   return (
     <div className="relative">

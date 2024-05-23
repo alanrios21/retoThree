@@ -1,22 +1,5 @@
 {
   "posts": [
-    {
-      "id": "743b",
-      "nombre": "Alan Rios",
-      "email": "riosalan264@gmail.com",
-      "password": "123"
-    },
-    {
-      "id": "5bc7",
-      "nombre": "Alan Rios",
-      "email": "riosalan264@gmail.com",
-      "password": "123"
-    },
-    {
-      "id": "6e82",
-      "nombre": "Mariana Rausch",
-      "email": "riosalan264@gmail.com",
-      "password": "123"
-    }
+    
   ]
 }
