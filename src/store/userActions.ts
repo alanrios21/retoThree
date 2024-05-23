@@ -13,7 +13,7 @@ interface CreateUserRequestAction {
 
 interface CreateUserSuccessAction {
   type: 'CREATE_USER_SUCCESS';
-  payload: UserData; // El tipo de datos específico de la respuesta de datos
+  payload: UserData; 
 }
 
 interface CreateUserFailureAction {
@@ -23,7 +23,7 @@ interface CreateUserFailureAction {
 
 interface UpdateUserAction {
   type: 'UPDATE_USER';
-  payload: UserData; // Reemplaza 'UserData' con el tipo específico de tus datos de usuario
+  payload: UserData; 
 }
 
 export const updateUser = (userData: UserData): UpdateUserAction => {

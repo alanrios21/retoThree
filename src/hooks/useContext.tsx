@@ -13,7 +13,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3001/posts', {
+      const response = await fetch('http://localhost:3001/api/posts', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
