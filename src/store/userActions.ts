@@ -1,50 +1,42 @@
 import axios from 'axios';
-import { Dispatch } from 'redux';
+import store from './store';
+import { createUserRequest, createUserSuccess, createUserFailure, updateUser, resetUser } from './userReducer';
+import { ThunkAction } from 'redux-thunk';
+import { RootState } from './store';
+import { AnyAction } from '@reduxjs/toolkit';
 
 interface UserData {
-  nombre: string;
+  username: string;
   email: string;
   password: string;
 }
 
-interface CreateUserRequestAction {
-  type: 'CREATE_USER_REQUEST';
-}
+export type AppDispatch = typeof store.dispatch;
 
-interface CreateUserSuccessAction {
-  type: 'CREATE_USER_SUCCESS';
-  payload: UserData; 
-}
-
-interface CreateUserFailureAction {
-  type: 'CREATE_USER_FAILURE';
-  payload: string;
-}
-
-interface UpdateUserAction {
-  type: 'UPDATE_USER';
-  payload: UserData; 
-}
-
-export const updateUser = (userData: UserData): UpdateUserAction => {
-  return {
-    type: 'UPDATE_USER',
-    payload: userData,
-  };
+export const createUser = (userData: UserData) => async (dispatch: AppDispatch) => {
+  dispatch(createUserRequest());
+  
+  try {
+    const response = await axios.post('https://api-node-3hz8.onrender.com/register', userData);
+    dispatch(createUserSuccess(response.data));
+    dispatch(resetUser());
+  } catch (error) {
+    dispatch(createUserFailure('Error creating user'));
+    console.log(error);
+  }
 };
 
-type UserActionTypes = CreateUserRequestAction | CreateUserSuccessAction | CreateUserFailureAction;
+export const getLastUser = (): ThunkAction<void, RootState, unknown, AnyAction> => async (dispatch) => {
+  dispatch(createUserRequest());
 
-export const createUser = (userData: UserData) => {
-  return (dispatch: Dispatch<UserActionTypes>) => {
-    dispatch({ type: 'CREATE_USER_REQUEST' });
-
-    axios.post('http://localhost:3001/usuarios', userData)
-      .then(() => {
-        dispatch({ type: 'CREATE_USER_SUCCESS', payload: userData }); 
-      })
-      .catch(error => {
-        dispatch({ type: 'CREATE_USER_FAILURE', payload: error.message });
-      });
-  };
+  try {
+    const response = await axios.get('https://api-node-3hz8.onrender.com/getLastUser');
+    
+    dispatch(createUserSuccess(response.data));
+  } catch (error) {
+    dispatch(createUserFailure('Error fetching last user'));
+    console.error('Error fetching last user:', error);
+  }
 };
+
+export { updateUser };

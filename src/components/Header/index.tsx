@@ -2,7 +2,10 @@ import DropdownMessage from './DropdownMessage';
 import DropdownNotification from './DropdownNotification';
 import DropdownUser from './DropdownUser';
 import DarkModeSwitcher from './DarkModeSwitcher';
-import { useUser } from '../../hooks/useContext';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { useEffect } from 'react';
+import { getLastUser } from '../../store/userActions';
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
@@ -10,7 +13,11 @@ const Header = (props: {
 
 }) => {
 
-  const { username } = useUser();
+  const dispatch: AppDispatch = useDispatch(); 
+ 
+  useEffect(() => {
+    dispatch(getLastUser());
+  }, [dispatch]);
 
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
@@ -96,7 +103,8 @@ const Header = (props: {
             <DropdownNotification />
             <DropdownMessage />
           </ul>
-          <DropdownUser username={username} />
+          
+          <DropdownUser username={''} />
         </div>
       </div>
     </header>

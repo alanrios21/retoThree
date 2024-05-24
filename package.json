@@ -5,33 +5,36 @@
   "type": "commonjs",
   "scripts": {
     "dev": "vite",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "serve": "netlify dev"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.5",
     "@types/chart.js": "^2.9.41",
+    "@types/react-redux": "^7.1.33",
+    "@types/redux-thunk": "^2.1.0",
     "apexcharts": "^3.49.1",
     "axios": "^1.6.8",
     "chart.js": "^4.4.3",
-    "firebase": "^10.12.0",
+    "firebase": "^10.12.1",
     "flatpickr": "^4.6.13",
     "json-server": "^1.0.0-beta.0",
     "json-server-auth": "^2.1.0",
     "jsvectormap": "^1.5.3",
-    "react": "^17.0.2",
-
+    "mongoose": "^8.4.0",
+    "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
-    "react-dom": "^17.0.2",
+    "react-dom": "^18.2.0",
     "react-icons": "^5.2.1",
     "react-redux": "^9.1.2",
     "react-router": "^6.23.1",
     "react-router-dom": "^6.23.1",
-    "react-scripts": "^5.0.1",
-    "react-simple-maps": "^3.0.0"
+    "react-simple-maps": "^3.0.0",
+    "react-spinners": "^0.13.8",
+    "react-toastify": "^10.0.5",
+    "redux": "^5.0.1",
+    "redux-thunk": "^3.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.2",
@@ -47,7 +50,7 @@
     "eslint-plugin-react-refresh": "^0.4.6",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
-    "typescript": "^4.9.5",
+    "typescript": "^5.2.2",
     "vite": "^5.2.0"
   }
 }

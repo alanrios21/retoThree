@@ -1,16 +1,24 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import UserOne from '../../images/user/user-01.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/store';
+import { getLastUser } from '../../store/userActions';
+import { ClipLoader } from 'react-spinners';
 
 interface DropdownUserProps {
   username: string;
 }
 
-const DropdownUser: React.FC<DropdownUserProps> = ({ username }) => {
+const DropdownUser: React.FC<DropdownUserProps> = () => {
+
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const trigger = useRef<HTMLAnchorElement>(null);
   const dropdown = useRef<HTMLDivElement>(null);
-
+  const loading = useSelector((state: RootState) => state.user?.loading);
+  const dispatch: AppDispatch = useDispatch(); 
+  const username = useSelector((state: RootState) => state.user?.user?.username);
+  
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
       if (!dropdown.current || !trigger.current) return;
@@ -35,6 +43,10 @@ const DropdownUser: React.FC<DropdownUserProps> = ({ username }) => {
     return () => document.removeEventListener('keydown', keyHandler);
   }, [dropdownOpen]);
 
+  useEffect(() => {
+    dispatch(getLastUser());
+  }, [dispatch]);
+  
   return (
     <div className="relative">
       <Link
@@ -43,11 +55,17 @@ const DropdownUser: React.FC<DropdownUserProps> = ({ username }) => {
         className="flex items-center gap-4"
         to="#"
       >
-        <span className="hidden text-right lg:block">
-          <span className="block text-sm font-medium text-black dark:text-white">
-            {username}
-          </span>
-        </span>
+     <span className="hidden text-right lg:block">
+  <span className="block text-sm font-medium text-black dark:text-white">
+    {loading ? ( 
+      <div className="flex justify-center items-center">
+        <ClipLoader size={24} color="#000" />
+      </div>
+    ) : (
+      username 
+    )}
+  </span>
+</span>
 
         <span className="h-12 w-12 rounded-full">
           <img src={UserOne} alt="User" />
@@ -133,7 +151,8 @@ const DropdownUser: React.FC<DropdownUserProps> = ({ username }) => {
         </ul>
         <NavLink
           to="/">
-          <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+          <button 
+          className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
             <svg
               className="fill-current"
               width="22"

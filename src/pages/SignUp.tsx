@@ -3,35 +3,42 @@ import LogoDark from '../images/logo/logo-dark.svg';
 import Logo from '../images/logo/logo-icon.svg';
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { useUser } from "../hooks/useContext";
+import { useDispatch } from "react-redux";
+import { createUser, getLastUser } from "../store/userActions";
+import { AppDispatch } from "../store/store";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface FormData {
-  nombre: string;
+  username: string;
   email: string;
   password: string;
 }
 
 interface FormErrors {
-  nombre: string;
+  username: string;
   email: string;
   password: string;
+  
 }
 
 const SignUp = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const [errores, setErrores] = useState<FormErrors>({
-    nombre: '',
+    username: '',
     email: '',
-    password: ''
+    password: '',
+    
   });
 
   const [formData, setFormData] = useState<FormData>({
-    nombre: '',
+    username: '',
     email: '',
     password: ''
   });
 
-  const { setUsername, fetchData } = useUser(); 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -49,11 +56,13 @@ const SignUp = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    let formIsValid = true;
-    const newErrors: FormErrors = { nombre: '', email: '', password: '' };
 
-    if (formData.nombre.trim() === '') {
-      newErrors.nombre = 'Please enter your name';
+    // Validación del formulario
+    let formIsValid = true;
+    const newErrors: FormErrors = { username: '', email: '', password: '' };
+
+    if (formData.username.trim() === '') {
+      newErrors.username = 'Please enter your name';
       formIsValid = false;
     }
 
@@ -70,24 +79,24 @@ const SignUp = () => {
     setErrores(newErrors);
 
     if (formIsValid) {
-      try {
-        await fetch('http://localhost:3001/api/posts', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
+      dispatch(createUser(formData))
+      .then(() => {
+        toast.success('Registration successful! Redirecting to home page...', {
+          autoClose: 2000, 
+          onClose: () => {
+            setTimeout(() => {
+              dispatch(getLastUser()); 
+              navigate('/home');
+            }, 200);    
           },
-          body: JSON.stringify(formData)
         });
-
-        setUsername(formData.nombre);
-        fetchData();
-
-        navigate('/home');
-      } catch (error) {
-        console.error('Network error:', error);
-      }
+      })
+      .catch((error) => {
+        console.error('Error registering user:', error);
+      });
     }
   };
+  
   return (
     <div>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -243,14 +252,14 @@ const SignUp = () => {
                   <div className="relative">
                     <input
                       type="text"
-                      name="nombre"
+                      name="username"
                       placeholder="Enter your full name"
-                      value={formData.nombre}
+                      value={formData.username}
                       onChange={handleChange}
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
-                    {errores.nombre && (
-                      <p className="text-red-500 mt-3">{errores.nombre}</p>
+                    {errores.username && (
+                      <p className="text-red-500 mt-3">{errores.username}</p>
                     )}
                     <span className="absolute right-4 top-4">
                       <svg
@@ -359,6 +368,8 @@ const SignUp = () => {
                     className="w-full cursor-pointer rounded-lg border border-[#A7B7DD] bg-[#A7B7DD] p-4 text-white transition hover:bg-opacity-90">Submit</button>
                 </div>
               </form>
+              <ToastContainer />
+
             </div>
           </div>
         </div>
