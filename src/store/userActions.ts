@@ -17,7 +17,7 @@ export const createUser = (userData: UserData) => async (dispatch: AppDispatch) 
   dispatch(createUserRequest());
   
   try {
-    const response = await axios.post('https://api-node-3hz8.onrender.com/register', userData);
+    const response = await axios.post('https://api-node-6nnu.vercel.app/register', userData);
     dispatch(createUserSuccess(response.data));
     dispatch(resetUser());
   } catch (error) {
@@ -30,7 +30,7 @@ export const getLastUser = (): ThunkAction<void, RootState, unknown, AnyAction> 
   dispatch(createUserRequest());
 
   try {
-    const response = await axios.get('https://api-node-3hz8.onrender.com/getLastUser');
+    const response = await axios.get('https://api-node-6nnu.vercel.app/getLastUser');
     
     dispatch(createUserSuccess(response.data));
   } catch (error) {
