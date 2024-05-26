@@ -77,7 +77,6 @@ const SignUp = () => {
     }
 
     setErrores(newErrors);
-
     if (formIsValid) {
       dispatch(createUser(formData))
       .then(() => {
