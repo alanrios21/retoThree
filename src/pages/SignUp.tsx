@@ -82,7 +82,7 @@ const SignUp = () => {
       dispatch(createUser(formData))
       .then(() => {
         toast.success('Registration successful! Redirecting to home page...', {
-          autoClose: 2000, 
+          autoClose: 1000, 
           onClose: () => {
             setTimeout(() => {
               dispatch(getLastUser()); 
