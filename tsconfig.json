@@ -20,6 +20,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "firebase.ts"],
+  "include": ["cypress" , "src/**/*.ts", "src/**/*.tsx", ],
+  "exclude": ["node_modules", "cypress"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

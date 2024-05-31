@@ -80,13 +80,11 @@ const SignUp = () => {
     if (formIsValid) {
       dispatch(createUser(formData))
       .then(() => {
-        toast.success('Registration successful! Redirecting to home page...', {
+        toast.success('Registration successful! Redirecting to Login page...', {
           autoClose: 1000, 
-          onClose: () => {
-            setTimeout(() => {
+          onClose: () => {      
               dispatch(getLastUser()); 
-              navigate('/home');
-            }, 200);    
+              navigate('/login');        
           },
         });
       })

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from './store';
-import { createUserRequest, createUserSuccess, createUserFailure, updateUser, resetUser } from './userReducer';
+import { createUserRequest, createUserSuccess, createUserFailure, updateUser, resetUser, loginUserRequest, loginUserSuccess, loginUserFailure } from './userReducer';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from './store';
 import { AnyAction } from '@reduxjs/toolkit';
@@ -10,6 +10,13 @@ interface UserData {
   email: string;
   password: string;
 }
+
+
+interface FormData {
+  email: string;
+  password: string;
+}
+
 
 export type AppDispatch = typeof store.dispatch;
 
@@ -36,6 +43,16 @@ export const getLastUser = (): ThunkAction<void, RootState, unknown, AnyAction> 
   } catch (error) {
     dispatch(createUserFailure('Error fetching last user'));
     console.error('Error fetching last user:', error);
+  }
+};
+
+export const loginUser = (formData: FormData) => async (dispatch: AppDispatch) => {
+  dispatch(loginUserRequest());
+  try {
+    const response = await axios.post('https://api-node-6nnu.vercel.app/login', formData);
+    dispatch(loginUserSuccess(response.data));
+  } catch (error) {
+    dispatch(loginUserFailure('Invalid email or password'));
   }
 };
 

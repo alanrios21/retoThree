@@ -5,6 +5,7 @@ import ListProducts from '../pages/ListProducts';
 import ListClients from '../pages/ListClients';
 import GlobalSales from '../pages/GlobalSales';
 import Analytics from '../pages/Analytics';
+import Login from '../pages/Login';
 
 const AppRouter = () => {
 
@@ -12,6 +13,7 @@ const AppRouter = () => {
     <div>
       <RouterRoutes> 
         <Route path="/" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/products" element={<ListProducts />} />
         <Route path="/clients" element={<ListClients />} />
