@@ -46,13 +46,14 @@ export const getLastUser = (): ThunkAction<void, RootState, unknown, AnyAction> 
   }
 };
 
-export const loginUser = (formData: FormData) => async (dispatch: AppDispatch) => {
+export const loginUser = (formData: FormData) => async (dispatch: AppDispatch): Promise<void> => {
   dispatch(loginUserRequest());
   try {
     const response = await axios.post('https://api-node-6nnu.vercel.app/login', formData);
     dispatch(loginUserSuccess(response.data));
   } catch (error) {
     dispatch(loginUserFailure('Invalid email or password'));
+    throw error;
   }
 };
 
